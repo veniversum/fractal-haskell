@@ -1,3 +1,4 @@
+module Mbrot where
 import Data.Complex
 import Control.Arrow ((***))
 import ImageOutput
@@ -6,14 +7,14 @@ import Codec.Picture.Types
 
 -- Size parameters
 size :: (Int,Int)
-size = (3500,2000)
+size = (1400,800)
 
 --Helpful calculated parameters
 sizef :: (Float,Float)
 sizef = (fromIntegral *** fromIntegral) size
 
 maxIter :: Int 
-maxIter = 200
+maxIter = 1000
 
 mult :: Float
 mult = 255 / fromIntegral maxIter
@@ -24,8 +25,8 @@ multg = 400 / fromIntegral maxIter
 -- Function for rendering pixels
 drawGreyscale :: Bool -> Int -> Int -> Pixel8
 drawGreyscale c x y 
-    |c =  fromIntegral (round(float*mult))
-    |otherwise = fromIntegral(int*(round mult))
+    |c =  fromIntegral (round(float * mult))
+    |otherwise = fromIntegral(int * round mult)
     where int = mbrot maxIter (((x1/x2)-0.5) :+ (y1/y2))
           float = mbrotContinuous maxIter (((x1/x2)-0.5) :+ (y1/y2))
           x1 = 2 * (fromIntegral x - x2)
@@ -53,7 +54,7 @@ drawColorZoom zoom (fx, fy) x y =  colorToPixel $ color (float*multg)
           y2 = snd sizef /2
 
 drawTestGradient :: Int -> Int -> PixelRGB8
-drawTestGradient x _ = colorToPixel $ color ((fromIntegral x)*400/1000)
+drawTestGradient x _ = colorToPixel $ color (fromIntegral x *400/1000)
 
 mbrot :: RealFloat x => Int -> Complex x -> Int
 mbrot n = mbrot' maxIter (0 :+ 0)
@@ -74,14 +75,16 @@ mbrotContinuous n = mbrot' maxIter (0 :+ 0)
             |otherwise = normalized
                 where 
                     newIter = a*a + c
-                    normalized =  if (n > 0) 
-                                  then fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0)
-                                  else 0
+                    normalized =  if n > 0
+                                  then 
+                                    fromIntegral(maxIter - n +1) - logBase 2 ( logBase 2 (magnitude newIter ^ 2) / 2 )   
+                                    --fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0)
+                                  else fromIntegral maxIter
 
 main :: IO()
-main = do 
+main = 
             --createPngColor (1000,50) (drawTestGradient)
-            --createPngColor size (drawColorZoom 1 ((-0.743643887037158704752191506114774),(0.131825904205311970493132056385139)))  -- Create continuous colored static image
-            createPngColor size (drawColorZoom 1 (-0.75,0))
+            createPngColor size (drawColorZoom 1 ((-0.743643887037158704752191506114774),(0.131825904205311970493132056385139)))  -- Create continuous colored static image
+            --createPngColor size (drawColorZoom 2 (-0.75,0))
             --createPngGreyscale size (drawGreyscale True)  -- Create continuous greyscale static image
             --createGifColor [createImage size (drawColorZoom i) | i <- [1..100]] -- Create continuously colored zooming gif
