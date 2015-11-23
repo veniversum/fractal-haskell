@@ -10,7 +10,7 @@ import           Codec.Picture.Types
 type ColorPoint = (Float, String)
 
 colorScheme :: [ColorPoint]
-colorScheme = [(0,"000764"),(64,"206BCB"),(168,"EDFFFF"),(257,"FFAA00"),(371,"000200")]
+colorScheme = [(0,"000764"),(10,"206BCB"),(168,"EDFFFF"),(257,"FFAA00"),(371,"000200")]
 
 colorToPixel :: Colour Float-> PixelRGB8
 colorToPixel color = PixelRGB8 r g b
