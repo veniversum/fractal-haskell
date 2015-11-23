@@ -6,7 +6,7 @@ import Codec.Picture.Types
 
 -- Size parameters
 size :: (Int,Int)
-size = (350,200)
+size = (3500,2000)
 
 --Helpful calculated parameters
 sizef :: (Float,Float)
@@ -60,7 +60,7 @@ mbrot n = mbrot' maxIter (0 :+ 0)
     where
         mbrot' :: RealFloat x => Int -> Complex x -> Complex x -> Int
         mbrot' n a c
-            |magnitude newIter < 2 && n > 0 = mbrot' (n-1) newIter c
+            |magnitude newIter < 65535 && n > 0 = mbrot' (n-1) newIter c
             |otherwise = maxIter - n
                 where 
                     newIter = a*a + c
@@ -70,16 +70,18 @@ mbrotContinuous n = mbrot' maxIter (0 :+ 0)
     where
         mbrot' :: RealFloat x => Int -> Complex x -> Complex x -> x
         mbrot' n a c
-            |magnitude newIter < 2 && n > 0 = mbrot' (n-1) newIter c
+            |magnitude newIter < 65535 && n > 0 = mbrot' (n-1) newIter c
             |otherwise = normalized
                 where 
                     newIter = a*a + c
-                    normalized = fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0);
+                    normalized =  if (n > 0) 
+                                  then fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0)
+                                  else 0
 
 main :: IO()
 main = do 
             --createPngColor (1000,50) (drawTestGradient)
-            createPngColor size (drawColorZoom 1 ((-0.743643887037158704752191506114774),(0.131825904205311970493132056385139)))  -- Create continuous colored static image
+            --createPngColor size (drawColorZoom 1 ((-0.743643887037158704752191506114774),(0.131825904205311970493132056385139)))  -- Create continuous colored static image
             createPngColor size (drawColorZoom 1 (-0.75,0))
             --createPngGreyscale size (drawGreyscale True)  -- Create continuous greyscale static image
             --createGifColor [createImage size (drawColorZoom i) | i <- [1..100]] -- Create continuously colored zooming gif
