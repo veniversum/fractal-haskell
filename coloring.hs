@@ -2,7 +2,7 @@ module Coloring where
 import           Data.Colour              (Colour)
 import           Data.Colour.RGBSpace     (uncurryRGB)
 import           Data.Colour.RGBSpace.HSV (hsv, hsvView)
-import           Data.Colour.SRGB         (sRGB, toSRGB)
+import           Data.Colour.SRGB         (RGB(..),sRGB, toSRGB, sRGB24read, toSRGB24)
 import           Data.List                (minimumBy)
 import           Data.Ord                 (comparing)
 import           Codec.Picture.Types
@@ -10,12 +10,16 @@ import           Codec.Picture.Types
 type ColorPoint = (Float, String)
 
 colorScheme :: [ColorPoint]
-colorScheme = [(28,"#000764")]
+colorScheme = [(28,"640700"),(92,"cb6b20"),(196,"ffffed"),(285,"00aaff"),(371,"300231")]
 
-color :: Float -> PixelRGB8
-color index = undefined
-    where min = last $ (head colorScheme) : (filter (\a -> fst a < index) colorScheme)
-          max = head $ (filter (\a -> fst a > index) colorScheme) ++ [last colorScheme]
+colorToPixel :: Colour Float-> PixelRGB8
+colorToPixel color = PixelRGB8 r g b
+    where RGB r g b = toSRGB24 color 
+
+color :: Float -> Colour Float
+color index = hsvBlend index min max
+    where min = (sRGB24read.snd.last) $ (head colorScheme) : (filter (\a -> fst a < index) colorScheme)
+          max = (sRGB24read.snd.head) $ (filter (\a -> fst a > index) colorScheme) ++ [last colorScheme]
 
 hsvBlend :: RealFloat n => n -> Colour n -> Colour n -> Colour n
 hsvBlend t c1 c2 = uncurryRGB sRGB . hsv3

@@ -1,6 +1,7 @@
 import Data.Complex
 import Control.Arrow ((***))
 import ImageOutput
+import Coloring
 import Codec.Picture.Types
 
 -- Size parameters
@@ -41,7 +42,7 @@ drawGreyscale c x y
 ----    |otherwise = writePng "out.png" (freezeImage image)
 ---- (255 `mod` (mbrot maxIter (x :+ y)))
 drawColorZoom :: Float -> Int -> Int -> PixelRGB8
-drawColorZoom zoom x y =  PixelRGB8 (0::Pixel8) (0::Pixel8) (fromIntegral (round(float*mult)))
+drawColorZoom zoom x y =  colorToPixel $ color (float*mult)
     where float = mbrotContinuous maxIter (((x1/x2)-0.743643887037158704752191506114774) :+ ((y1/y2)+0.131825904205311970493132056385139))
           x1 = 2 * (fromIntegral x - x2) / zoom
           y1 = 2 * (fromIntegral y - y2) / zoom
