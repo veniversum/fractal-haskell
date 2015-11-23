@@ -56,4 +56,4 @@ mbrot n = mbrot' maxIter (0 :+ 0)
                     newIter = a*a + c
 
 main :: IO()
-main = createPngColor size (drawColor2 2)
+main = createGifColor [createImage size (drawColor2 i) | i <- [1..10]]

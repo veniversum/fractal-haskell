@@ -8,8 +8,9 @@ createPngGreyscale size pixelRenderer= writePng "out_grey.png" $ uncurry (genera
 createPngColor :: (Int,Int) -> (Int -> Int -> PixelRGB8) -> IO()
 createPngColor size pixelRenderer= writePng "out_color.png" $ uncurry (generateImage pixelRenderer) size
 
-createImage :: Pixel a => (Int,Int) -> (Int -> Int -> a) -> Image a
+createImage :: (Int,Int) -> (Int -> Int -> PixelRGB8) -> Image PixelRGB8
 createImage size pixelRenderer = uncurry (generateImage pixelRenderer) size
 
-createGifColor :: [Image PixelRGB8]-> Either String (IO ())
-createGifColor = writeGifAnimation "out_color.gif" 10 LoopingForever 
+createGifColor :: [Image PixelRGB8]-> IO ()
+createGifColor frames = a
+    where Right a = writeGifAnimation "out_color.gif" 10 LoopingForever frames
