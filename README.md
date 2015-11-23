@@ -2,11 +2,18 @@
 
 ##Functionality
 +  Drawing mandelbrot set
+  +  Integer escape time
+  +  Real escape time
+  +  Greyscale or colored renders
+  +  Continuously colored
 +  Outputing to .png
++  Animating to .gif
++  Variable zoom and focus renders
 
 ##Todo
-+  Seperate drawing of fractal and fractal generation
-+  Animations
++  Color interpolation based on color scheme
++  Rewrite functions to make changing parameters easier
++  Optimization to reduce runtime
 
 ##Libraries
 ###JuicyPixels
