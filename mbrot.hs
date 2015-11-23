@@ -6,7 +6,7 @@ import Codec.Picture.Types
 
 -- Size parameters
 size :: (Int,Int)
-size = (800,800)
+size = (350,200)
 
 --Helpful calculated parameters
 sizef :: (Float,Float)
@@ -17,6 +17,9 @@ maxIter = 200
 
 mult :: Float
 mult = 255 / fromIntegral maxIter
+
+multg :: Float
+multg = 400 / fromIntegral maxIter
 
 -- Function for rendering pixels
 drawGreyscale :: Bool -> Int -> Int -> Pixel8
@@ -41,13 +44,16 @@ drawGreyscale c x y
 ----    |y < snd size = (writePixel image x y 255) >> draw image 0 (y+1)
 ----    |otherwise = writePng "out.png" (freezeImage image)
 ---- (255 `mod` (mbrot maxIter (x :+ y)))
-drawColorZoom :: Float -> Int -> Int -> PixelRGB8
-drawColorZoom zoom x y =  colorToPixel $ color (float*mult)
-    where float = mbrotContinuous maxIter (((x1/x2)-0.743643887037158704752191506114774) :+ ((y1/y2)+0.131825904205311970493132056385139))
-          x1 = 2 * (fromIntegral x - x2) / zoom
-          y1 = 2 * (fromIntegral y - y2) / zoom
+drawColorZoom :: Float -> (Float,Float) -> Int -> Int -> PixelRGB8
+drawColorZoom zoom (fx, fy) x y =  colorToPixel $ color (float*multg)
+    where float = mbrotContinuous maxIter (((x1/x2)+fx) :+ ((y1/y2)+fy))
+          x1 = 1.75 * (fromIntegral x - x2) / zoom
+          y1 = (fromIntegral y - y2) / zoom
           x2 = fst sizef /2
           y2 = snd sizef /2
+
+drawTestGradient :: Int -> Int -> PixelRGB8
+drawTestGradient x _ = colorToPixel $ color ((fromIntegral x)*400/1000)
 
 mbrot :: RealFloat x => Int -> Complex x -> Int
 mbrot n = mbrot' maxIter (0 :+ 0)
@@ -68,10 +74,12 @@ mbrotContinuous n = mbrot' maxIter (0 :+ 0)
             |otherwise = normalized
                 where 
                     newIter = a*a + c
-                    normalized = fromIntegral (maxIter - n) - (log (log (magnitude a)))/ log (2.0);
+                    normalized = fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0);
 
 main :: IO()
 main = do 
-            createPngColor size (drawColorZoom 1)  -- Create continuous colored static image
+            --createPngColor (1000,50) (drawTestGradient)
+            createPngColor size (drawColorZoom 1 ((-0.743643887037158704752191506114774),(0.131825904205311970493132056385139)))  -- Create continuous colored static image
+            createPngColor size (drawColorZoom 1 (-0.75,0))
             --createPngGreyscale size (drawGreyscale True)  -- Create continuous greyscale static image
-            --createGifColor [createImage size (drawColorZoom i) | i <- [1..10]] -- Create continuously colored zooming gif
+            --createGifColor [createImage size (drawColorZoom i) | i <- [1..100]] -- Create continuously colored zooming gif
