@@ -8,7 +8,7 @@ createPngGreyscale size pixelRenderer= writePng "out_grey.png" $ uncurry (genera
 createPngColor :: (Int,Int) -> (Int -> Int -> PixelRGB8) -> IO()
 createPngColor size pixelRenderer= writePng "out_color.png" $ uncurry (generateImage pixelRenderer) size
 
-createImage :: (Int,Int) -> (Int -> Int -> PixelRGB8) -> Image PixelRGB8
+createImage :: Pixel a => (Int,Int) -> (Int -> Int -> a) -> Image a
 createImage size pixelRenderer = uncurry (generateImage pixelRenderer) size
 
 createGifColor :: [Image PixelRGB8]-> IO ()
