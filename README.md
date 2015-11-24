@@ -1,6 +1,7 @@
 #Fractal Image Generator
 
-Haskell program that draws mandelbrot sets. 
+<p align="center">Haskell program that draws mandelbrot sets.
+<img src=https://cloud.githubusercontent.com/assets/6357330/11373480/65881446-92ca-11e5-9f82-35cc851e660c.gif></p>
 
 ##Functionality
 + Drawing mandelbrot set
