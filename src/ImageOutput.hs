@@ -19,4 +19,4 @@ createGifColor = createGifColorWithFileName "out_color.gif"
 
 createGifColorWithFileName :: String -> [Image PixelRGB8]-> IO ()
 createGifColorWithFileName filename frames = a
-    where Right a = writeGifAnimation filename 10 LoopingForever frames
+    where Right a = writeGifAnimation ("./animation/" ++ filename) 10 LoopingForever frames
