@@ -17,3 +17,5 @@ cabal.sandbox.config
 *.png
 *.gif
 *.exe
+!out/
+!out/*

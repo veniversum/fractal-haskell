@@ -12,6 +12,9 @@
 + Render individual frames of zoom animation
   + Bash script to render multiple frames in parallel
   + Combine individual images of frames into animated .gif
+  
+##Examples
+[See examples here!](EXAMPLES.md)
 
 ##Todo
 + Write documentation
