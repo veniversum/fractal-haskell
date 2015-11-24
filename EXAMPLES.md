@@ -9,3 +9,5 @@ Interesting patterns
 Zooming animation
 ![](https://github.com/veniversum/fractal-haskell/blob/master/out/anim.gif)
 
+![](https://github.com/veniversum/fractal-haskell/blob/master/out/ca_zoom_100.gif)
+
