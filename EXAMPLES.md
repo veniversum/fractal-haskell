@@ -1,3 +1,4 @@
+**Animated gifs may take a while to load on slow connections**
 #Examples of output
 ##Mandelbrot set
 
@@ -8,6 +9,9 @@
 ![Large gif animation](https://github.com/veniversum/fractal-haskell/blob/master/out/ca_zoom_100.gif)
 ![Very simple animation](https://github.com/veniversum/fractal-haskell/blob/master/out/anim.gif)
 
+
+Self similarity in mandelbrot set:
+![Self similarity in mandelbrot set](https://cloud.githubusercontent.com/assets/6357330/11384932/0f4fe8aa-930c-11e5-8eac-1a85a0b385d0.gif)
 
 ####Same render but with different color schemes
 ![Color scheme 1](https://cloud.githubusercontent.com/assets/6357330/11383961/be401ad2-9303-11e5-95bb-86b68be6b030.png)
