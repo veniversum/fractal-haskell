@@ -1,6 +1,6 @@
 module ImageOutput where
-import Codec.Picture
-import Codec.Picture.Types
+import           Codec.Picture
+import           Codec.Picture.Types
 
 createPngGreyscale :: (Int,Int) -> (Int -> Int -> Pixel8) -> IO()
 createPngGreyscale size pixelRenderer= writePng "out_grey.png" $ uncurry (generateImage pixelRenderer) size

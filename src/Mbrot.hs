@@ -1,9 +1,9 @@
 module Mbrot where
-import Data.Complex
-import Control.Arrow ((***))
-import ImageOutput
-import Coloring
-import Codec.Picture.Types
+import           Codec.Picture.Types
+import           Coloring
+import           Control.Arrow       ((***))
+import           Data.Complex
+import           ImageOutput
 
 -- |Size parameters
 size :: (Int,Int)
@@ -14,7 +14,7 @@ sizef :: (Float,Float)
 sizef = (fromIntegral *** fromIntegral) size
 
 -- |Maximum iterations
-maxIter :: Int 
+maxIter :: Int
 maxIter = 1000
 
 -- |Color step for integer esacpe coloring
@@ -30,7 +30,7 @@ drawGreyscale :: Bool    -- ^Continuously colored
               -> Int
               -> Int
               -> Pixel8
-drawGreyscale c x y 
+drawGreyscale c x y
     |c =  fromIntegral (round(float * mult))
     |otherwise = fromIntegral(int * round mult)
     where int = mbrot maxIter (((x1/x2)-0.5) :+ (y1/y2))
@@ -44,16 +44,16 @@ drawGreyscale c x y
 drawColor :: Int -> Int -> PixelRGB8
 drawColor x y =  colorToPixel $ color (fromIntegral (int*400)/1000)
     where int = mbrot maxIter ((x1/x2) :+ (y1/y2))
-          x1 = 1.75 * (fromIntegral x - x2) 
-          y1 = (fromIntegral y - y2)
+          x1 = 1.75 * (fromIntegral x - x2)
+          y1 = fromIntegral y - y2
           x2 = fst sizef /2
           y2 = snd sizef /2
 
 -- |Function for rendering pixel in color, with zoom level and focus
 drawColorZoom :: Float         -- ^ Zoom level
               -> (Float,Float) -- ^ Focus point (x,y)
-              -> Int 
-              -> Int 
+              -> Int
+              -> Int
               -> PixelRGB8
 drawColorZoom zoom (fx, fy) x y =  colorToPixel $ color (float*multg)
     where float = mbrotContinuous maxIter (((x1/x2)+fx) :+ ((y1/y2)+fy))
@@ -77,7 +77,7 @@ mbrot n = mbrot' maxIter (0 :+ 0)
         mbrot' n a c
             |magnitude newIter < 65535 && n > 0 = mbrot' (n-1) newIter c
             |otherwise = maxIter - n
-                where 
+                where
                     newIter = a*a + c
 
 -- |Function for real floating escape time of mbrot set of Re(x) + Im(y)
@@ -91,11 +91,10 @@ mbrotContinuous n = mbrot' maxIter (0 :+ 0)
         mbrot' n a c
             |magnitude newIter < 65535 && n > 0 = mbrot' (n-1) newIter c
             |otherwise = normalized
-                where 
+                where
                     newIter = a*a + c
                     normalized =  if n > 0
-                                  then 
-                                    fromIntegral(maxIter - n +1) - logBase 2 ( logBase 2 (magnitude newIter ^ 2) / 2 )   
+                                  then
+                                    fromIntegral(maxIter - n +1) - logBase 2 ( logBase 2 (magnitude newIter ^ 2) / 2 )
                                     --fromIntegral (maxIter - n +1) - (log (log (magnitude newIter)))/ log (2.0)
                                   else fromIntegral maxIter
-
