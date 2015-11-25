@@ -7,7 +7,7 @@
 
 ####Zooming animations
 ![Large gif animation](https://github.com/veniversum/fractal-haskell/blob/master/out/ca_zoom_100.gif)
-![Very simple animation](https://github.com/veniversum/fractal-haskell/blob/master/out/anim.gif)
+<!-- ![Very simple animation](https://github.com/veniversum/fractal-haskell/blob/master/out/anim.gif) -->
 
 
 Self similarity in mandelbrot set:
