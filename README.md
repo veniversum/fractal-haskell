@@ -86,4 +86,4 @@ Run `ghci -isrc src/filename.hs` from project root for interactive environment.
 + Optimizations to reduce runtime
 
 ##License
-[BSD3](LICENSE.md)
+[BSD3](LICENSE)
