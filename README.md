@@ -1,4 +1,4 @@
-#Fractal Image Generator
+# Fractal Image Generator
 
 **fractal-haskell** is a tool written in haskell (duh!) that draws Mandelbrot fractals. 
 It is capable of generating stunning high resolution renders, both stills and animated, 
@@ -7,7 +7,7 @@ of the Mandelbrot set fractal featuring smooth colorful gradients.
 This is just an example of what it can do!
 <p align="center"><img src=https://cloud.githubusercontent.com/assets/6357330/11373480/65881446-92ca-11e5-9f82-35cc851e660c.gif></p>
 
-##Functionality
+## Functionality
 + Drawing mandelbrot set
   + Integer escape time
   + Real escape time
@@ -23,23 +23,23 @@ This is just an example of what it can do!
   + Bash script to render multiple frames in parallel, leverages multiple cores (tested up to 40 cores)
   + Combine individual images of frames into animated .gif, variable delay between frames
   
-##Examples
+## Examples
 [See examples here!](EXAMPLES.md)
 Images and animated gifs rendered on UoE Informatics computing servers.
 
-##Libraries
+## Libraries
 The following third party libraries/packages are required for low level image manipulation
-###JuicyPixels
+### JuicyPixels
 JuicyPixels is the library used to draw output into image files.    
 >     cabal update
 >     cabal install juicypixels
 
-###colour
+### colour
 colour (not color!) package is used to represent colors as well as switching between colorspaces.
 >     cabal update
 >     cabal install colour
 
-##Usage
+## Usage
 **Note:** It is important to run commands from project root to ensure relative file paths are correct.
 
 You may need to `chmod +x` executables and shell script in order to run them.
@@ -79,11 +79,11 @@ modify source to add your own render functions.
 While individual haskell source files can be run in GHCi, it is not recommended due to poorer performance.
 Run `ghci -isrc src/filename.hs` from project root for interactive environment.
 
-##Todo
+## Todo
 + Write more documentation
 + Generate more example outputs
 + Rewrite functions to make changing parameters easier
 + Optimizations to reduce runtime
 
-##License
+## License
 [BSD3](LICENSE)
